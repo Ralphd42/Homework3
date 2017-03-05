@@ -10,7 +10,11 @@ public class HW3 {
 		DoubleLinkedSortedList dlsl = new DoubleLinkedSortedList();
 		dlsl.AddNode("Hello");
 		dlsl.AddNode("Good bye");
+		dlsl.AddNode("Great ggggg");
+		
 		dlsl.PrintNodesForward();
+		System.out.println("------------------------");
+		dlsl.PrintNodesBackward();
 	}
 
 }

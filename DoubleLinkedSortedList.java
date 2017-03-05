@@ -29,6 +29,20 @@ public class DoubleLinkedSortedList
                                         tmp = tmp.getNext();
                         }
         }
+        public void PrintNodesBackward()
+        {
+                        Node tmp = last;
+                        while(tmp!=null)
+                        {
+                                        System.out.println(tmp.getDataItem());
+                                        tmp = tmp.getPrev();
+                        }
+        }
+        
+        
+        
+        
+        
         public void AddNode( String NodeText)
         {
                 if( isEmpty())
