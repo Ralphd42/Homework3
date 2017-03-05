@@ -20,6 +20,15 @@ public class DoubleLinkedSortedList
                 return first==null;
         }
 
+        public void PrintNodesForward()
+        {
+                        Node tmp = first;
+                        while(tmp!=null)
+                        {
+                                        System.out.println(tmp.getDataItem());
+                                        tmp = tmp.getNext();
+                        }
+        }
         public void AddNode( String NodeText)
         {
                 if( isEmpty())
@@ -27,6 +36,7 @@ public class DoubleLinkedSortedList
                         Node newNode =new Node(NodeText);
                         first = newNode;
                         last  = newNode;
+                        return;
                 }
                 Node tmp = first;
                 while (tmp!=null  && NodeText.compareTo(tmp.getDataItem()) >0)

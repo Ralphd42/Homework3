@@ -12,9 +12,11 @@ public class Node
         private Node prev; // the Previous Node
         private Node next; // the next Node
 
-        public Node( String nodeData, Node next, Node Prev)
+        public Node( String nodeData, Node Next, Node Prev)
         {
-
+        	dataItem = nodeData;
+        	this.next = Next;
+        	this.prev = Prev;
 
         }
 

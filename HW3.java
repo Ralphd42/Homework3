@@ -8,7 +8,9 @@ public class HW3 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		DoubleLinkedSortedList dlsl = new DoubleLinkedSortedList();
-		Node nd = new Node("A111");
+		dlsl.AddNode("Hello");
+		dlsl.AddNode("Good bye");
+		dlsl.PrintNodesForward();
 	}
 
 }
