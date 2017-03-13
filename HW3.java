@@ -15,6 +15,9 @@ public class HW3 {
 		dlsl.PrintNodesForward();
 		System.out.println("------------------------");
 		dlsl.PrintNodesBackward();
+		System.out.println("------------------------------------------------------");
+		Node N = dlsl.FindNode("Great ggggg");
+		System.out.println(N.getDataItem());
 	}
 
 }
