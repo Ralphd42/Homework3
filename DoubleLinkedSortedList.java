@@ -101,13 +101,30 @@ public class DoubleLinkedSortedList
             }
             if(tmp!=null)
             {
+            	deleted =true;
             	//Deelete the node
             	Node Prev = tmp.getPrev();
             	Node Next = tmp.getNext();
-            	// Set next of Prev to Next
-            	Prev.SetNext(Next);
-            	//Set Prev ofNext to 
-            	
+            	if(Prev!=null)
+            	{
+            		if(Next!=null)
+            		{
+            			Prev.SetNext(Next);
+            			Next.SetPrevNode(Prev);
+            		}
+            		else
+            		{
+            			Prev.SetNext(null);
+            		}
+            		
+            	}
+            	else
+            	{
+            		if(Next!=null)
+            		{
+            			Next.SetPrevNode(null);
+            		}
+            	}
             }
             
         	return deleted;
