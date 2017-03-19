@@ -18,7 +18,11 @@ public class HW3 {
 		System.out.println("------------------------------------------------------");
 		Node N = dlsl.FindNode("Great ggggg");
 		System.out.println(N.getDataItem());
-		
+		System.out.println("--------------asdasdsad----------------------------------------");
+		System.out.println(N);
+		System.out.println("--------------asdasdsad----------------------------------------");
+		System.out.println(N.toString());
+		System.out.println("--------------asdasdsad----------------------------------------");
 		boolean Del = dlsl.RemoveNode("Great ggggg");
 		if(Del)
 		{
