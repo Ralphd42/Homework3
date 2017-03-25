@@ -16,7 +16,7 @@ public class HW3 {
 		System.out.println("------------------------");
 		dlsl.PrintNodesBackward();
 		System.out.println("------------------------------------------------------");
-		Node N = dlsl.FindNode("Great ggggg");
+		DoubleLinkedSortedList.Node N = dlsl.FindNode("Great ggggg");
 		System.out.println(N.getDataItem());
 		System.out.println("--------------asdasdsad----------------------------------------");
 		System.out.println(N);
