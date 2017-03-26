@@ -1,11 +1,4 @@
-/**
- * • Insert a node in the list in alphabetical order
-• Find a node that matches a String
-• Traverse the list forwards and print
-• Traverse the list backwards and print
-• Delete a node from the list
-• Delete/destroy the list
- */
+
 
 /**
  * @author ralph
@@ -14,7 +7,7 @@
  */
 public class DoubleLinkedSortedListDict {
 	private DictNode first;// Head of List
-	private DictNode last; // Tail node of list
+	//private DictNode last; // Tail node of list
     private boolean isCaseSensitve; // specifies if searching etc will be case sensitive
     private boolean allowDuplicates;// specifies if we are allowing duplicates
 	
@@ -32,7 +25,7 @@ public class DoubleLinkedSortedListDict {
      */
 	public DoubleLinkedSortedListDict(boolean CaseSensitve,boolean allowDuplicates ) {
 		first = null;
-		last = null;
+		
 		isCaseSensitve =CaseSensitve;
 		this.allowDuplicates = allowDuplicates;
 	}
@@ -62,7 +55,7 @@ public class DoubleLinkedSortedListDict {
 	 * This will print the nodes in reverse order
 	 */
 	public void PrintNodesBackward() {
-		DictNode tmp = last;
+		DictNode tmp = tailNode();
 		while (tmp != null) {
 			System.out.println(tmp.toString());
 			tmp = tmp.getPrev();
@@ -110,7 +103,8 @@ public class DoubleLinkedSortedListDict {
 		{
 			if(ItemExists(dictKey))
 			{
-				throw new DictException("Item Already exists in list");
+				String msg = String.format("KEY %s already exist in Dictionary. Consider using SetEntry instead", dictKey);
+				throw new DictException(msg );
 			}
 			
 		}
@@ -119,20 +113,18 @@ public class DoubleLinkedSortedListDict {
 		if (isEmpty()) {
 			DictNode newNode = new DictNode(dictKey, null, null, Value);
 			first = newNode;
-			last = newNode;
+			
 			return;
 		}
 		DictNode tmp = first;
+		DictNode ln =  tmp;
 		while (tmp != null &&  CompStrings(dictKey,tmp.getKey()) > 0) {
+			ln =  tmp;
 			tmp = tmp.getNext();
 		}
 		if (tmp != null) // found one to insert before
 		{
-			DictNode newNode = new DictNode(dictKey, tmp, tmp.getPrev(), Value);// create
-																				// and
-																				// add
-																				// new
-																				// node
+			DictNode newNode = new DictNode(dictKey, tmp, tmp.getPrev(), Value);
 			if (tmp.getPrev() != null)// check for first
 			{
 				tmp.getPrev().SetNext(newNode); // set previous to point to new
@@ -143,8 +135,8 @@ public class DoubleLinkedSortedListDict {
 			tmp.SetPrevNode(newNode); // set tmp previous to
 		} else // insert at end
 		{
-			DictNode newNode = new DictNode(dictKey, null, last, Value);
-			last.SetNext(newNode);
+			DictNode newNode = new DictNode(dictKey, null, ln, Value);
+			ln.SetNext(newNode);
 		}
 
 	}
@@ -205,6 +197,10 @@ public class DoubleLinkedSortedListDict {
 			} else {
 				if (Next != null) {
 					Next.SetPrevNode(null);
+					first = Next;
+				}else
+				{
+					first =null;
 				}
 			}
 		}
@@ -212,12 +208,23 @@ public class DoubleLinkedSortedListDict {
 		return deleted;
 	}
 	
+	
+	/**
+	 * Adds new entry with no value
+	 * @param Key Key to add
+ 	 */
+	public void SetEntry(String Key)
+	{
+		SetEntry(Key,null);
+	
+	}
+	
 	/**
 	 * Adds or updates item in dictionary
 	 * @param Key  the key to either add or update
 	 * @param Value the new value to either add or update
 	 */
-	public void SetEntry(String Key, String Value)
+	public void SetEntry(String Key, Object Value)
 	{
 		DictNode node =FindItem(Key);
 		if(node!=null)
@@ -229,9 +236,58 @@ public class DoubleLinkedSortedListDict {
 			AddItem(Key,Value);
 		}
 	}
+	/**
+	 * gets value of a KEY
+	 * @param Key
+	 * @return the value assoicated with the entry as an object.  This can be cast to what ever the user needs
+	 */
+	public Object GetEntry(String Key)
+	{
+		DictNode node =FindItem(Key);
+		if (node==null){
+			String msg = String.format("KEY %s does not exist in Dictionary", Key);
+			throw new DictException(msg );
+		}
+		return node.getValue();	
+		
+	}
 	
 	
+	/**
+	 * Destroy the dictionary
+	 */
+	public void DestroyDictionary()
+	{
+		first =null;
+	}
 	
+	/**
+	 * gets the end of the dictionary
+	 * @return the last node
+	 */
+	private DictNode tailNode()
+	{
+		DictNode tmp =first;
+		while( tmp!=null && tmp.getNext()!=null){
+			tmp=tmp.getNext();
+		}
+		return tmp;
+	}
+	
+	/**
+	 * 
+	 * @return current size of Dictionary
+	 */
+	long size()
+	{
+		long retval =0;
+		DictNode tmp =first;
+		while( tmp!=null ){
+			retval++;
+			tmp=tmp.getNext();
+		}
+		return retval;
+	}
 	
 	class DictNode {
 		private String key;// the DataITem
