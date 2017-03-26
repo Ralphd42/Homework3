@@ -57,7 +57,7 @@ public class DoubleLinkedSortedListDict {
 			tmp = tmp.getNext();
 		}
 	}
-
+	
 	/**
 	 * This will print the nodes in reverse order
 	 */
@@ -68,6 +68,29 @@ public class DoubleLinkedSortedListDict {
 			tmp = tmp.getPrev();
 		}
 	}
+	
+	/**
+	 * This function handles the comparing of the strings to determine order of List
+	 * @param StringOne
+	 * @param StringTwo
+	 * @return
+	 */
+	private int CompStrings(String StringOne,String StringTwo)
+	{
+		int retval=0;
+		if( isCaseSensitve){
+			retval=StringOne.compareTo(StringTwo);
+		}
+		else
+		{
+			retval=StringOne.toLowerCase().compareTo(StringTwo.toLowerCase());
+		
+		}
+		return retval;
+		
+		
+	}
+	
 
 	/**
 	 * Adds item to list with only a key
@@ -100,7 +123,7 @@ public class DoubleLinkedSortedListDict {
 			return;
 		}
 		DictNode tmp = first;
-		while (tmp != null && dictKey.compareTo(tmp.getKey()) > 0) {
+		while (tmp != null &&  CompStrings(dictKey,tmp.getKey()) > 0) {
 			tmp = tmp.getNext();
 		}
 		if (tmp != null) // found one to insert before
@@ -133,7 +156,7 @@ public class DoubleLinkedSortedListDict {
 	public boolean ItemExists(String ItemName)
 	{	
 		DictNode tmp = first;
-		while (tmp != null && ItemName.compareTo(tmp.getKey()) != 0) {
+		while (tmp != null && CompStrings(ItemName,tmp.getKey()) != 0) {
 			tmp = tmp.getNext();
 		}
 		return tmp!=null;
@@ -148,7 +171,7 @@ public class DoubleLinkedSortedListDict {
 	 */
 	public DictNode FindItem(String ItemText) {
 		DictNode tmp = first;
-		while (tmp != null && ItemText.compareTo(tmp.getKey()) != 0) {
+		while (tmp != null && CompStrings(ItemText,tmp.getKey()) != 0             ) {
 			tmp = tmp.getNext();
 		}
 		return tmp;
@@ -163,7 +186,7 @@ public class DoubleLinkedSortedListDict {
 	public boolean RemoveItem(String KeyVal) {
 		boolean deleted = false;
 		DictNode tmp = first;
-		while (tmp != null && KeyVal.compareTo(tmp.getKey()) != 0) {
+		while (tmp != null && CompStrings(KeyVal,tmp.getKey()) != 0 ) {
 			tmp = tmp.getNext();
 		}
 		if (tmp != null) {
@@ -188,7 +211,25 @@ public class DoubleLinkedSortedListDict {
 
 		return deleted;
 	}
-
+	
+	/**
+	 * Adds or updates item in dictionary
+	 * @param Key  the key to either add or update
+	 * @param Value the new value to either add or update
+	 */
+	public void SetEntry(String Key, String Value)
+	{
+		DictNode node =FindItem(Key);
+		if(node!=null)
+		{
+			node.setValue(Value);
+		
+		}else
+		{
+			AddItem(Key,Value);
+		}
+	}
+	
 	
 	
 	
